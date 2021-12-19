@@ -2400,6 +2400,15 @@ expand-brackets@^2.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
+expo-ads-facebook@~11.1.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/expo-ads-facebook/-/expo-ads-facebook-11.1.0.tgz#be3ebf4a3144aa06b6afceb8dc0b4b2dd21b710a"
+  integrity sha512-q2YIQ466x+BxL/hddmX9TgMCnc774zH18IKNwvPcQRs6F4zd8+bcSA/NN6pKo5apnffkJgaPRY6h16B5JDijOg==
+  dependencies:
+    "@expo/config-plugins" "^4.0.2"
+    fbemitter "^2.1.1"
+    nullthrows "^1.1.1"
+
 expo-application@~4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/expo-application/-/expo-application-4.0.1.tgz#d38a1315c06c253b843c951ddc6fbb9a026f05cc"

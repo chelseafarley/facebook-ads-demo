@@ -27,6 +27,19 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "facebookScheme": "fb1234567891234567",
+    "facebookAppId": "979736269624954",
+    "facebookDisplayName": "AdsDemo",
+    "facebookAutoLogAppEventsEnabled": true,
+    "facebookAdvertiserIDCollectionEnabled": true,
+    "plugins": [
+      [
+        "expo-ads-facebook",
+        {
+          "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
+        }
+      ]
+    ]
   }
 }

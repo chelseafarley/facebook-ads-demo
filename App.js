@@ -1,10 +1,60 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Button, Platform, View } from 'react-native';
+import React from 'react';
+import * as FacebookAds from 'expo-ads-facebook';
 
 export default function App() {
+  let [ isLoaded, setIsLoaded ] = React.useState(false);
+  const bannerId = getPlacementId(true);
+  const interstitialId = getPlacementId(false);
+
+  FacebookAds.AdSettings.requestPermissionsAsync()
+    .then(permissions => {
+      let canTrack = permissions === "granted";
+      FacebookAds.AdSettings.setAdvertiserTrackingEnabled(canTrack);
+      setIsLoaded(true);
+    })
+
+  function getPlacementId(bannerAd) {
+    let placementId;
+    if (bannerAd) {
+      placementId = Platform.OS === "ios" ? "979736269624954_979737056291542" : "979736269624954_979737399624841"
+    } else {
+      placementId = Platform.OS === "ios" ? "979736269624954_979737219624859" : "979736269624954_979737516291496"
+    }
+
+    if (__DEV__) {
+      return `IMG_16_9_APP_INSTALL#${placementId}`;
+    }
+
+    return placementId;
+  }
+
+  function showInterstitial() {
+    FacebookAds.InterstitialAdManager.showAd(interstitialId)
+      .then(didClick => console.log(didClick))
+      .catch(error => console.log(error));
+  }
+
+  function getBannerAd() {
+    if (isLoaded) {
+      return (
+        <FacebookAds.BannerAd
+          placementId='large'
+          onPress={() => console.log("click")}
+          onError={error => console.log(error.nativeEvent)} />
+      );
+    }
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <View style={styles.content}>
+        <Button title="Show Interstitial" onPress={showInterstitial} />
+      </View>
+      <View style={styles.adView}>
+        {getBannerAd()}
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -17,4 +67,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  content: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  adView: {
+    alignItems: 'flex-start'
+  }
 });
