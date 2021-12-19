@@ -10,7 +10,7 @@ export default function App() {
 
   FacebookAds.AdSettings.requestPermissionsAsync()
     .then(permissions => {
-      let canTrack = permissions === "granted";
+      let canTrack = permissions.status === "granted";
       FacebookAds.AdSettings.setAdvertiserTrackingEnabled(canTrack);
       setIsLoaded(true);
     })
@@ -40,7 +40,8 @@ export default function App() {
     if (isLoaded) {
       return (
         <FacebookAds.BannerAd
-          placementId='large'
+          placementId={bannerId}
+          type="large"
           onPress={() => console.log("click")}
           onError={error => console.log(error.nativeEvent)} />
       );
@@ -73,6 +74,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   adView: {
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    alignSelf: 'stretch'
   }
 });
